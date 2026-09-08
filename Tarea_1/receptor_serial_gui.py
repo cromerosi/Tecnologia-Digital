@@ -18,6 +18,8 @@ class App:
         self.ser = None
         self.running = False
 
+        root.option_add("*Font", ("Segoe UI", 11))
+
         # ── Fila de controles ──
         ctrl = tk.Frame(root, bg="#1e1e2e")
         ctrl.pack(fill=tk.X, padx=10, pady=8)
@@ -39,7 +41,7 @@ class App:
         ttk.Button(ctrl, text="Limpiar", command=self._limpiar).pack(side=tk.LEFT, padx=2)
 
         # ── Log ──
-        self.log = scrolledtext.ScrolledText(root, font=("Consolas", 10),
+        self.log = scrolledtext.ScrolledText(root, font=("Consolas", 12),
                                              bg="#181825", fg="#cdd6f4",
                                              state=tk.DISABLED, wrap=tk.WORD)
         self.log.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
