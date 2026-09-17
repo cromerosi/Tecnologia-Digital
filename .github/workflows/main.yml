@@ -25,20 +25,20 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install matplotlib numpy pandas
+          pip install -r Laboratorio-Metrologia/python/requirements.txt
 
       - name: Generar gráficas
-        working-directory: informe
+        working-directory: Laboratorio-Metrologia/python
         run: |
           python graficas.py
 
       - name: Compilar LaTeX
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: Laboratorio-Metrologia/main.tex
+          root_file: Laboratorio-Metrologia/latex/main.tex
 
       - name: Guardar PDF
         uses: actions/upload-artifact@v4
         with:
           name: informe-pdf
-          path: Laboratorio-Metrologia/Informe.pdf
+          path: Laboratorio-Metrologia/latex/main.pdf
