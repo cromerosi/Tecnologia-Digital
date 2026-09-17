@@ -6,18 +6,15 @@ on:
       - main
     paths:
       - "Laboratorio-Metrologia/**"
-
   workflow_dispatch:
 
 jobs:
   generar:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
 
     steps:
-
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
@@ -38,7 +35,14 @@ jobs:
       - name: Compilar LaTeX
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: Laboratorio-Metrologia/latex/main.tex
+          # CAMBIO 1: Declarar el directorio de trabajo para evitar problemas con rutas de imágenes en LaTeX
+          working_directory: Laboratorio-Metrologia/latex
+          root_file: main.tex
+
+      - name: Renombrar PDF final
+        # CAMBIO 2: Renombrar el archivo para que no se llame "main.pdf" en la Release
+        run: |
+          mv Laboratorio-Metrologia/latex/main.pdf Laboratorio-Metrologia/latex/Informe-Metrologia-v${{ github.run_number }}.pdf
 
       - name: Crear Release
         uses: softprops/action-gh-release@v2
@@ -50,4 +54,4 @@ jobs:
 
             Generado automáticamente mediante GitHub Actions.
           files: |
-            Laboratorio-Metrologia/latex/main.pdf
+            Laboratorio-Metrologia/latex/Informe-Metrologia-v${{ github.run_number }}.pdf
