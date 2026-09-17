@@ -1,0 +1,44 @@
+name: Generar PDF
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Laboratorio-Metrologia/**"
+
+  workflow_dispatch:
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: |
+          pip install matplotlib numpy pandas
+
+      - name: Generar gráficas
+        working-directory: informe
+        run: |
+          python graficas.py
+
+      - name: Compilar LaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: Laboratorio-Metrologia/main.tex
+
+      - name: Guardar PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-pdf
+          path: Laboratorio-Metrologia/Informe.pdf
