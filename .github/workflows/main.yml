@@ -13,6 +13,9 @@ jobs:
   generar:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
 
       - name: Descargar repositorio
@@ -37,8 +40,14 @@ jobs:
         with:
           root_file: Laboratorio-Metrologia/latex/main.tex
 
-      - name: Guardar PDF
-        uses: actions/upload-artifact@v4
+      - name: Crear Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: informe-pdf
-          path: Laboratorio-Metrologia/latex/main.pdf
+          tag_name: laboratorio-metrologia-v${{ github.run_number }}
+          name: Laboratorio de Metrología v${{ github.run_number }}
+          body: |
+            Informe de Laboratorio de Metrología.
+
+            Generado automáticamente mediante GitHub Actions.
+          files: |
+            Laboratorio-Metrologia/latex/main.pdf
