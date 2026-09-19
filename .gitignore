@@ -1,0 +1,26 @@
+# Archivos de salida principales
+*.pdf
+*.synctex.gz
+*.synctex(busy)
+
+# Archivos auxiliares de compilación
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.toc
+*.xdv
+
+# Archivos temporales de VS Code / LaTeX Workshop
+.vscode/
+*.bak
